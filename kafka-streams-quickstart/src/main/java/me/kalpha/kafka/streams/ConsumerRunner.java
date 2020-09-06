@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
+import java.util.regex.Pattern;
 
 @Component
 public class ConsumerRunner implements org.springframework.boot.ApplicationRunner {
@@ -78,7 +79,9 @@ public class ConsumerRunner implements org.springframework.boot.ApplicationRunne
 
         final StreamsBuilder builder = new StreamsBuilder();
 // Body ------------------------------------------------------
+// 문자열 split해서 다른 topic에 produce
         KStream<String, String> source = builder.stream("streams-plaintext-input");
+        source.to("streams-pipe-output");
         source.flatMapValues(v -> Arrays.asList(v.split("\\W+"))).
                 to("streams-linesplit-output");
 //------------------------------------------------------------
