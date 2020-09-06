@@ -15,16 +15,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Properties;
-import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 
 @Component
-public class PipeRunner implements ApplicationRunner {
+public class ConsumerRunner implements org.springframework.boot.ApplicationRunner {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        pipe();
+        lineSplit();
     }
 
     private void pipe() {
